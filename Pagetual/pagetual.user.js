@@ -10,7 +10,7 @@
 // @name:fr      Pagetual
 // @name:it      Pagetual
 // @namespace    hoothin
-// @version      1.9.37.56
+// @version      1.9.37.66
 // @description  Perpetual pages - powerful auto-pager script. Auto fetching next paginated web pages and inserting into current page for infinite scroll. Support thousands of web sites without any rule.
 // @description:zh-CN  终极自动翻页 - 加载并拼接下一分页内容至当前页尾，智能适配任意网页
 // @description:zh-TW  終極自動翻頁 - 加載並拼接下一分頁內容至當前頁尾，智能適配任意網頁
@@ -232,6 +232,130 @@
                 rulesExample: "Rules Example",
                 lastPage: "Reached the last page",
                 lastPageTips: "Show tips when reaching the last page"
+            }
+        },
+        {
+            //Translated by SrKalopsia (srkalopsia@gmail.com).
+            name: "Español",
+            match: ["es", "es-ES"],
+            lang: {
+                enableDebug: "Habilitar salida de depuración",
+                updateNotification: "Notificación después de actualizar las reglas",
+                disable: "Desactivar",
+                disableSite: "Alternar estado desactivado",
+                disableSiteTips: "Desactivado en este sitio",
+                enableSiteTips: "Activado en este sitio",
+                enable: "Habilitar",
+                toTop: "Ir al inicio",
+                toBottom: "Ir al final",
+                current: "Página actual",
+                forceIframe: "Forzar para unirse a la siguiente página",
+                cancelForceIframe: "Cancelar unión forzada",
+                configure: "Configurar",
+                firstUpdate: "Haga clic aquí para inicializar las reglas",
+                update: "Actualizar reglas en línea",
+                click2update: "Haga clic para actualizar las reglas desde la URL ahora",
+                loadNow: "Cargar el siguiente automáticamente",
+                loadConfirm: "¿Cuántas páginas desea cargar? (0 significa infinito)",
+                noNext: "No se encontró el enlace siguiente, por favor cree una nueva regla",
+                passSec: "Actualizado hace #t# segundos",
+                passMin: "Actualizado hace #t# minutos",
+                passHour: "Actualizado hace #t# horas",
+                passDay: "Actualizado hace #t# días",
+                cantDel: "No se pueden eliminar las reglas incorporadas",
+                confirmDel: "¿Está seguro de que desea eliminar esta regla?",
+                updateSucc: "Actualización exitosa",
+                beginUpdate: "Comenzar actualización, espere un momento por favor",
+                customUrls: "Importar URL de reglas de Pagetual o AutoPagerize, una URL por línea",
+                customRules: "Introduzca reglas personalizadas. <a href='#t#'>✍️Contribuir reglas</a>",
+                save: "Guardar",
+                loadingText: "Shojo Cargando...",
+                opacity: "Opacidad",
+                opacityPlaceholder: "0: ocultar espaciador",
+                hideBar: "Ocultar el espaciador de paginación",
+                hideBarButNoStop: "Ocultar pero no detener",
+                dbClick2Stop: "Haga doble clic en el espacio en blanco para pausar",
+                sortTitle: "La ordenación surtirá efecto después de la próxima actualización de reglas",
+                autoRun: "Habilitar automáticamente (modo lista negra)",
+                autoLoadNum: "Cantidad de páginas para precargar",
+                turnRate: "Pasar a la siguiente página cuando esté a menos de 【X】 veces la altura de la página desde el pie de página",
+                inputPageNum: "Ingrese el número de página para saltar",
+                enableHistory: "Escribir historial de navegación después de pasar la página",
+                enableHistoryAfterInsert: "Escribir historial de navegación inmediatamente después de unir, de lo contrario escribir después de navegar",
+                contentVisibility: "Cambiar automáticamente la visibilidad del contenido para mejorar el rendimiento de renderización",
+                initRun: "Pasar páginas inmediatamente después de abrir",
+                preload: "Precargar la siguiente página para acelerar",
+                click2ImportRule: "Haga clic para importar el enlace de reglas base, luego espere hasta que la actualización esté completa: ",
+                forceAllBody: "¿Unir el cuerpo completo de la página?",
+                openInNewTab: "Abrir URLs de adiciones en una nueva pestaña",
+                importSucc: "Importación completada",
+                import: "Importar",
+                editCurrent: "Editar regla para la actual",
+                editBlacklist: "Editar URLs de la lista negra, una por línea, admite ? * para comodín",
+                upBtnImg: "Icono de volver al inicio",
+                downBtnImg: "Icono de ir al pie de página",
+                sideControllerIcon: "Icono de la barra lateral",
+                loadingTextTitle: "Texto de carga",
+                dbClick2StopCtrl: "Tecla Ctrl",
+                dbClick2StopAlt: "Tecla Alt",
+                dbClick2StopShift: "Tecla Shift",
+                dbClick2StopMeta: "Tecla Meta",
+                dbClick2StopKey: "Tecla de acceso rápido",
+                pageElementCss: "Estilo personalizado para los elementos principales de la página",
+                customCss: "CSS completo personalizado",
+                firstAlert: "No ha importado la regla base, por favor seleccione la regla adecuada para importar",
+                picker: "Selector de elementos de página de Pagetual",
+                closePicker: "Cerrar selector de Pagetual",
+                pickerPlaceholder: "Selector de elementos, déjelo vacío si no tiene idea",
+                pickerCheck: "Comprobar selector y copiar",
+                switchSelector: "Haga clic para cambiar el elemento",
+                gotoEdit: "Ir a editar la regla con el selector actual",
+                manualMode: "Deshabilitar unión, pasar páginas manualmente con las teclas de flecha derecha (o despachar evento 'pagetual.next')",
+                clickMode: "Deshabilitar unión, hacer clic automáticamente en la siguiente página al desplazarse al final de la página",
+                pageBarMenu: "Haga clic en el centro de la barra de página para abrir el menú del selector",
+                nextSwitch: "Cambiar al siguiente enlace",
+                arrowToScroll: "Presione la tecla de flecha izquierda para desplazarse anterior y la tecla de flecha derecha para desplazarse siguiente",
+                sideController: "Mostrar la barra de control de paginación en la barra lateral",
+                sideControllerScroll: "Alternar desplazamiento",
+                sideControllerAlways: "Mostrar siempre",
+                hideLoadingIcon: "Ocultar animación de carga",
+                hideBarArrow: "Ocultar flecha para la barra de página",
+                duplicate: "Pagetual duplicado ha sido instalado, ¡revise su gestor de scripts!",
+                forceStateIframe: "Incrustar página completa como iframe",
+                forceStateDynamic: "Cargar contenido dinámico a través de iframe",
+                forceStateDisable: "Deshabilitar pasar páginas en este sitio",
+                autoScrollRate: "Velocidad de desplazamiento (1~1000)",
+                disableAutoScroll: "Detener desplazamiento automático",
+                enableAutoScroll: "Habilitar desplazamiento automático",
+                toggleAutoScroll: "Alternar desplazamiento automático",
+                ruleRequest: "Solicitud de regla",
+                page: "Página ",
+                prevPage: "Página anterior",
+                nextPage: "Página siguiente",
+                errorRulesMustBeArray: "¡Las reglas deben ser un array!",
+                errorJson: "Error JSON, ¡verifique de nuevo!",
+                editSuccess: "Editado exitosamente",
+                errorWrongUrl: "URL incorrecta, ¡verifique de nuevo!",
+                errorAlreadyExists: "¡Ya existe!",
+                settingsSaved: "La configuración se ha guardado, actualice para ver",
+                iframe: "Iframe",
+                dynamic: "Dinámico",
+                reloadPage: "Edición completada, ¿recargar página ahora?",
+                copied: "Copiado",
+                noValidContent: "No se detectó contenido válido, puede ser necesario realizar una acción de Captcha, haga clic para ver",
+                outOfDate: "El script está desactualizado, ¡actualice a la última versión a tiempo!",
+                hideBarTips: "Ocultar la barra de paginación, alternar experiencia inmersiva",
+                setConfigPage: "Establecer la página actual como la página de configuración predeterminada",
+                wedata2github: "Cambiar la dirección de wedata a la dirección espejo en el repositorio de GitHub",
+                addOtherProp: "Agregar propiedad de regla",
+                addNextSelector: "Agregar contenido del selector como nextLink",
+                addPageSelector: "Agregar contenido del selector como pageElement",
+                propName: "Ingrese el nombre de la propiedad de la regla",
+                propValue: "Ingrese el valor de la propiedad de la regla",
+                customFirst: "Ignorar caché para reglas personalizadas locales",
+                rulesExample: "Ejemplo de reglas",
+                lastPage: "Llegó a la última página",
+                lastPageTips: "Mostrar consejos al llegar a la última página"
             }
         },
         {
@@ -1158,7 +1282,7 @@
                     let classList = ele.classList;
                     for (let i = 0; i < classList.length; i++) {
                         let c = classList[i];
-                        if (/^[\w\-_]+$/.test(c) && !/\d{4,}/.test(c)) {
+                        if (c !== 'scrolling' && /^[a-z_][\w\-_]*$/.test(c) && !/\d{4,}/.test(c)) {
                             className += '.' + c;
                         }
                     }
@@ -1186,7 +1310,7 @@
                             let classList = prevE.classList;
                             for (let i = 0; i < classList.length; i++) {
                                 let c = classList[i];
-                                if (/^[\w\-_]+$/.test(c) && !/\d{4,}/.test(c)) {
+                                if (c !== 'scrolling' && /^[a-z_][\w\-_]*$/.test(c) && !/\d{4,}/.test(c)) {
                                     className += '.' + c;
                                 }
                             }
@@ -2015,7 +2139,7 @@
                 if (!body) return null;
                 let bodyHeight = parseInt(body.offsetHeight || body.scrollHeight);
                 let curHeight = bodyHeight, curWidth = 0;
-                let windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                let windowHeight = window.innerHeight || document.documentElement.clientHeight;
                 let windowWidth = window.innerWidth || document.documentElement.clientWidth;
                 let needCheckNext = (doc == document && this.initNext), nextLeftPos = 0;
                 if (needCheckNext && this.initNext.getBoundingClientRect) {
@@ -2523,13 +2647,15 @@
                 ".btn_next:not([disabled])",
                 ".btn-next:not([disabled])",
                 "a#linkNext",
-                "a[class*=page__next]",
-                "[class*=pager]>a.next",
-                "[class*=pagination-next]>a",
-                "[class*=pagination-next]>button",
-                "[class*=page--current]+li>a",
-                "[class*=Pages]>.curr+a",
+                "body a[class*=page__next]",
+                "body [class*=pager]>a.next",
+                "body [class*=pagination-next]>a",
+                "body [class*=pagination-next]>button",
+                "body [class*=page--current]+li>a",
+                "body [class*=Pages]>.curr+a",
+                "body [class*=pagination] [class*=next]",
                 ".page>em+a",
+                "[name*=nextPage]",
                 '//button[contains(@class, "Page")][text()="Next"]',
                 '//button[contains(@class, "page")][text()="next"]'
             ];
@@ -2618,7 +2744,7 @@
             }
             if (!next) {
                 let isApp = !!body.querySelector("main#app");
-                let aTags = body.querySelectorAll("a,button,[type='button']");
+                let aTags = body.querySelectorAll("a,button,[type='button'],.btn-action");
                 for (i = aTags.length - 1; i >= 0; i--) {
                     if (next1) break;
                     if (i % 100 === 0) {
@@ -2641,7 +2767,7 @@
                     }
                     if (!this.verifyElement(aTag)) continue;
                     if (aTag.dataset && aTag.dataset.preview) continue;
-                    let availableHref = aTag.href && aTag.href.length < 250 && /^http/.test(aTag.href);
+                    let availableHref = aTag.href && aTag.href.length < 250 && !/^(javascript:|#)/.test(aTag.href);
                     if (availableHref && /next\-?(page)?$|\/video\/|\/vod\/play\//i.test(aTag.href)) continue;
                     if (compareNodeName(aTag.parentNode, ["blockquote"])) continue;
                     if (aTag.previousElementSibling && /\b(play|volume)\b/.test(aTag.previousElementSibling.className)) continue;
@@ -2690,8 +2816,9 @@
                     }
                     if (urlWillChange) continue;
                     if (!next4 && availableHref) {
-                        if (aTag.href.indexOf(location.hostname) === -1) continue;
-                        let _aHref = aTag.href.replace("?&", "?").replace("index.php?", "?").toLowerCase();
+                        let aHref = aTag.href.indexOf("http") === 0 ? aTag.href : this.canonicalUri(aTag.href);
+                        if (aHref.indexOf(location.hostname) === -1) continue;
+                        let _aHref = aHref.replace("?&", "?").replace("index.php?", "?");
                         if (preStr || afterStr) {
                             let _aHrefTrim = _aHref;
                             if (preStr) _aHrefTrim = _aHrefTrim.replace(preStr, "");
@@ -2699,8 +2826,8 @@
                             if (_aHrefTrim == pageNum + 1) {
                                 next4 = aTag;
                             }
-                        } else if (this.curUrl !== aTag.href) {
-                            _aHref = _aHref.replace(/\.s?html?$/i, "");
+                        } else if (this.curUrl !== aHref) {
+                            _aHref = _aHref.replace(/\.s?html?$/i, "").toLowerCase();
                             if (_aHref.indexOf(_url) !== -1) {
                                 let pageTwoMatch = _aHref.replace(_url, "").match(pageTwoReg);
                                 if (pageTwoMatch) {
@@ -3024,8 +3151,8 @@
                                     let scrollHeight = video.scrollHeight || video.offsetHeight;
                                     if (compareNodeName(video, ["iframe"])) {
                                     } else if (scrollWidth > 100 && scrollHeight > 100) {
-                                        let winWidth = window.innerWidth || document.documentElement.clientWidth;
-                                        let winHeight = window.innerHeight || document.documentElement.clientHeight;
+                                        let winWidth = window.innerWidth || document.documentElement.clientWidth;
+                                        let winHeight = window.innerHeight || document.documentElement.clientHeight;
                                         if (scrollWidth > winWidth>>1 && scrollHeight > winHeight>>1) {
                                             debug("Disable when large media found");
                                         } else {
@@ -3063,7 +3190,15 @@
             }
             if (nextLink) {
                 if (!this.checkStopSign(nextLink, doc)) {
-                    if (curPage > 1 && rulesData.lastPageTips) showTips(i18n("lastPage"), "", 800);
+                    if (curPage > 1) {
+                        if (rulesData.lastPageTips) {
+                            showTips(i18n("lastPage"), "", 800);
+                        }
+                        _unsafeWindow.postMessage({
+                            action: "lastPage",
+                            command: 'pagetual'
+                        }, '*');
+                    }
                     return null;
                 }
                 if (this.curSiteRule.action == 3) {
@@ -3872,6 +4007,10 @@
                 }
             }
             isLoading = false;
+            _unsafeWindow.postMessage({
+                action: "insert",
+                command: 'pagetual'
+            }, '*');
             return true;
         }
     }
@@ -4139,7 +4278,7 @@
 
             bottom.addEventListener("click", e => {
                 if (!e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
-                    changeStop(true);
+                    changeStop(true, true);
                 }
                 let scrollH = Math.max(document.documentElement.scrollHeight, getBody(document).scrollHeight);
                 getBody(document).scrollTop = scrollH || 9999999;
@@ -4152,14 +4291,14 @@
             let removeTimer;
             move.addEventListener("click", e => {
                 if (!moving) {
-                    changeStop(!isPause);
+                    changeStop(!isPause, true);
                 }
             }, true);
             move.addEventListener("dblclick", e => {
                 clearTimeout(removeTimer);
                 document.removeEventListener("mousemove", mouseMoveHandler, true);
                 document.removeEventListener("mouseup", mouseUpHandler, true);
-                changeStop(!isPause);
+                changeStop(!isPause, true);
                 if (isPause) {
                     ruleParser.hideAddedElements();
                 } else {
@@ -5336,13 +5475,41 @@
         }
         let devicePixelRatio = window.devicePixelRatio;
         let scrollRange = Math.ceil(scrollRange_o / devicePixelRatio);
+
+        let scrollTarget, body = getBody(document);
+        let checkOverflow = ele => {
+            return ele.scrollHeight !== ele.clientHeight && getComputedStyle(ele).overflowY !== "hidden";
+        };
+        if (document.documentElement.scrollTop || checkOverflow(document.documentElement)) {
+            scrollTarget = document.documentElement;
+        } else if (body.scrollTop || checkOverflow(body)) {
+            scrollTarget = body;
+        } else {
+            let tempEle;
+            let img = body.querySelector('img');
+            if (img) {
+                tempEle = img;
+                while (tempEle && !checkOverflow(tempEle)) {
+                    tempEle = tempEle.parentNode;
+                }
+            }
+            if (!tempEle && document.activeElement) {
+                let tempEle = document.activeElement;
+                while (tempEle && !checkOverflow(tempEle)) {
+                    tempEle = tempEle.parentNode;
+                }
+            }
+            if (tempEle) scrollTarget = tempEle;
+        }
+        scrollTarget = scrollTarget || document.documentElement;
+
         autoScrollInterval = setInterval(() => {
             if (isPause) return;
             if (devicePixelRatio !== window.devicePixelRatio) {
                 devicePixelRatio = window.devicePixelRatio;
                 scrollRange = Math.ceil(scrollRange_o / devicePixelRatio);
             }
-            window.scroll(window.scrollX, window.scrollY + scrollRange);
+            scrollTarget.scrollTop += scrollRange;
         }, parseInt(1000 / autoScroll));
     }
 
@@ -5612,7 +5779,7 @@
                   margin-bottom: 0px;
                  }
                  #configCon #saveBtn {
-                  margin-bottom: -40px;
+                  margin-bottom: -30px;
                  }
                  #configCon.showSave #saveBtn {
                   margin-bottom: 0px;
@@ -6089,7 +6256,7 @@
         let dbClick2StopMetaInput = createCheckbox(i18n("dbClick2StopMeta"), rulesData.dbClick2StopMeta, "h4", dbClick2StopInput);
         let dbClick2StopKeyInput = createCheckbox(i18n("dbClick2StopKey"), rulesData.dbClick2StopKey, "h4", dbClick2StopInput, "key");
 
-        let otherConfigPage = (rulesData.configPage || configPage[0]) != location.href;
+        let otherConfigPage = (rulesData.configPage || configPage[0]) != location.href.replace(/#.*/, "");
         if (!otherConfigPage) {
             setConfigPageInput.parentNode.parentNode.style.display = "none";
         }
@@ -6718,11 +6885,11 @@
                     if (forceState == 1) {
                         forceState = 0;
                         showTips(i18n("enableSiteTips"));
-                        changeStop(false);
+                        changeStop(false, true);
                     } else {
                         forceState = 1;
                         showTips(i18n("disableSiteTips"));
-                        changeStop(true);
+                        changeStop(true, true);
                         sideController.remove();
                     }
                     setListData("forceState", location.host, forceState);
@@ -6802,28 +6969,35 @@
             onload: async function(res) {
                 if (isPause) return callback(false);
                 var doc = null, response = res.response;
-                let preCode = ruleParser.curSiteRule.pageElementPre || ruleParser.curSiteRule.pagePre;
+                try {
+                    doc = document.implementation.createHTMLDocument('');
+                    doc.documentElement.innerHTML = response;
+                } catch (e) {
+                    debug('parse error:' + e.toString());
+                }
+                let pageElement = null;
+                let preCode = ruleParser.curSiteRule.pagePre;
                 if (preCode) {
                     try {
+                        let preResult;
                         if (typeof preCode == 'function') {
-                            response = preCode(response);
+                            preResult = await preCode(response, doc);
                         } else if (preCode.length == 2) {
-                            response = response.replace(new RegExp(preCode[0], "gi"), preCode[1]);
+                            preResult = response.replace(new RegExp(preCode[0], "gi"), preCode[1]);
                         } else {
-                            response = Function("response",'"use strict";' + preCode)(response);
+                            preResult = await new AsyncFunction("response", "doc", '"use strict";' + preCode)(response, doc);
+                        }
+                        if (typeof preResult !== "undefined") {
+                            if (typeof preResult === "string") {
+                                doc.documentElement.innerHTML = preResult;
+                            } else pageElement = preResult;
                         }
                     } catch(e) {
                         debug(e);
                     }
                 }
-                try {
-                    doc = document.implementation.createHTMLDocument('');
-                    doc.documentElement.innerHTML = response;
-                    let base = doc.querySelector("base");
-                    ruleParser.basePath = base ? base.href : url;
-                } catch (e) {
-                    debug('parse error:' + e.toString());
-                }
+                let base = doc.querySelector("base");
+                ruleParser.basePath = base ? base.href : url;
                 if (charsetValid && !ruleHeaders) {
                     let equiv = doc.querySelector('[http-equiv="Content-Type"]');
                     if (equiv && equiv.content) {
@@ -6834,7 +7008,9 @@
                         }
                     }
                 }
-                let pageElement = ruleParser.getPageElement(doc);
+                if (pageElement === null) {
+                    pageElement = ruleParser.getPageElement(doc);
+                }
                 if ((!pageElement || pageElement.length == 0) && res.status >= 400) {
                     debug(res.status + " " + url, "Error status");
                     return callback(false);
@@ -7171,7 +7347,7 @@
     var tipsWords = document.createElement("div");
     tipsWords.className = "pagetual_tipsWords";
 
-    function changeStop(stop) {
+    function changeStop(stop, save) {
         isPause = stop;
         [].forEach.call(getBody(document).querySelectorAll(".pagetual_pageBar,#pagetual-sideController"), bar => {
             if (isPause) {
@@ -7182,7 +7358,7 @@
         });
         if (!isPause) ruleParser.showAddedElements();
         manualPause = isPause;
-        if (sideController.inited) setListData("pauseState", location.host, isPause ? true : "");
+        if (save && sideController.inited) setListData("pauseState", location.host, isPause ? true : "");
     }
 
     function changeHideBar(hide) {
@@ -7196,22 +7372,22 @@
         });
     }
 
-    function isInViewPort(element) {
+    function isInViewPort(element) {
         if (!getBody(document).contains(element)) return false;
-        const viewWidth = window.innerWidth || document.documentElement.clientWidth;
-        const viewHeight = window.innerHeight || document.documentElement.clientHeight;
-        const {
+        const viewWidth = window.innerWidth || document.documentElement.clientWidth;
+        const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+        const {
             top,
             right,
             bottom,
             left,
-        } = element.getBoundingClientRect();
+        } = element.getBoundingClientRect();
 
-        return (
-            top >= 0 &&
-            left >= 0 &&
-            right <= viewWidth + 1 &&
-            top <= viewHeight * rate &&
+        return (
+            top >= 0 &&
+            left >= 0 &&
+            right <= viewWidth + 1 &&
+            top <= viewHeight * rate &&
             isVisible(element, _unsafeWindow)
         );
     }
@@ -7222,22 +7398,22 @@
         for (let i = 0; i < pageBars.length; i++) {
             let pageBar = pageBars[i];
             if (!pageBar || !getBody(document).contains(pageBar)) continue;
-            let {
+            let {
                 top,
                 right,
                 bottom,
                 left,
-            } = pageBar.getBoundingClientRect();
+            } = pageBar.getBoundingClientRect();
             if (top > 500) {
                 nextBar = pageBar;
                 preBar = (i - 1 >= 0 ? pageBars[i - 1] : null);
                 if (pageBar && getBody(document).contains(pageBar)) {
-                    let {
+                    let {
                         top,
                         right,
                         bottom,
                         left,
-                    } = pageBar.getBoundingClientRect();
+                    } = pageBar.getBoundingClientRect();
                     if (top < -500) {
                         preBar = pageBar;
                     } else preBar = (i - 2 >= 0 ? pageBars[i - 2] : null);
@@ -7375,7 +7551,7 @@
         return scrollH - scrolly - windowHeight;
     }
 
-    let scrollHandler, clickToResetHandler, dblclickHandler, keydownHandler, hashchangeHandler, manualModeKeyHandler, pagetualNextHandler, keyupHandler;
+    let scrollHandler, clickToResetHandler, dblclickHandler, keydownHandler, hashchangeHandler, manualModeKeyHandler, pagetualNextHandler, keyupHandler, messageHandler;
     function initListener () {
         document.removeEventListener('scroll', scrollHandler, true);
         document.removeEventListener('wheel', scrollHandler, true);
@@ -7385,7 +7561,8 @@
         document.removeEventListener('keydown', manualModeKeyHandler);
         document.removeEventListener('pagetual.next', pagetualNextHandler, false);
         document.removeEventListener('keyup', keyupHandler);
-        let loadmoreBtn, loadingMore = true, lastScroll = 0, checkLoadMoreTimes = 0;
+        _unsafeWindow.removeEventListener('message', messageHandler, true);
+        let loadmoreBtn, loadingMore = true, lastScroll = 0, checkLoadMoreTimes = 0, loadMoreInv;
         if (ruleParser.curSiteRule.smart) {
             loadingMore = false;
         } else if (ruleParser.curSiteRule.loadMore) {
@@ -7420,6 +7597,45 @@
                 nextPage();
             }
         };
+        messageHandler = e => {
+            if (e.data.command === 'pagetual') {
+                let action = e.data.action;
+                let detail = e.data.detail;
+                switch (action) {
+                    case "config":
+                        if (!detail || typeof detail !== 'object') return;
+                        rulesData = {
+                            ...rulesData,
+                            ...detail
+                        }
+                        storage.setItem("rulesData", rulesData);
+                        break;
+                    case "nextPage":
+                        if (detail === "" || detail === null) return;
+                        detail = parseInt(detail) || 0;
+                        if (loadNowNum != detail) {
+                            loadNowNum = detail;
+                        }
+                        autoLoadNum = detail;
+                        nextPage();
+                        break;
+                    case "loadMore":
+                        clearInterval(loadMoreInv);
+                        if (detail === -1) return;
+                        loadmoreBtn = getLoadMore(document, loadmoreBtn);
+                        loadmoreBtn && emuClick(loadmoreBtn);
+                        if (detail === 0) {
+                            loadMoreInv = setInterval(() => {
+                                loadmoreBtn = getLoadMore(document, loadmoreBtn);
+                                loadmoreBtn && emuClick(loadmoreBtn);
+                            }, 500);
+                        }
+                        break;
+                }
+            }
+            return true;
+        }
+        _unsafeWindow.addEventListener('message', messageHandler, true);
         scrollHandler = e => {
             if (urlChanged && !isLoading) {
                 ruleParser.initPage(() => {});
@@ -7492,7 +7708,7 @@
                         changeHideBar(!isHideBar);
                     }
                     if (!rulesData.hideBarButNoStop) {
-                        changeStop(!isPause);
+                        changeStop(!isPause, true);
                         showTips(i18n(isPause ? "disable" : "enable"));
                     }
                     if (!isPause) {
@@ -7524,11 +7740,11 @@
                     if (forceState == 1) {
                         forceState = 0;
                         showTips(i18n("enableSiteTips"));
-                        changeStop(false);
+                        changeStop(false, true);
                     } else {
                         forceState = 1;
                         showTips(i18n("disableSiteTips"));
-                        changeStop(true);
+                        changeStop(true, true);
                         sideController.remove();
                     }
                     if (!ruleParser.curSiteRule.url) {
@@ -7631,7 +7847,7 @@
         }, 1);
     }
 
-    const loadmoreReg = /^\s*((点击)?加载更多|(點擊)?加載更多|load\s*more|もっと読み込む)[.…]*\s*$/i;
+    const loadmoreReg = /^\s*((点击)?加载更多|(點擊)?加載更多|(load|view)\s*more|もっと読み込む)[.…▼\s]*$/i;
     const defaultLoadmoreSel = ".loadMore,.LoadMore,[class*='load-more'],button.show_more,.button-show-more,button[data-testid='more-results-button'],#btn_preview_remain,.view-more-btn";
     function getLoadMore(doc, loadmoreBtn) {
         if (!loadmoreBtn || !getBody(doc).contains(loadmoreBtn) || /less/.test(loadmoreBtn.innerText)) loadmoreBtn = null;
@@ -7958,7 +8174,7 @@
         });
         downSpan.addEventListener("click", e => {
             if (!e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
-                changeStop(true);
+                changeStop(true, true);
             }
             pageBar.title = i18n(isPause ? "enable" : "disable");
             scrollH = Math.max(document.documentElement.scrollHeight, getBody(document).scrollHeight);
@@ -7968,7 +8184,7 @@
             e.stopPropagation();
         });
         pageBar.addEventListener("click", e => {
-            changeStop(!isPause);
+            changeStop(!isPause, true);
             pageBar.title = i18n(isPause ? "enable" : "disable");
         });
         ruleParser.insertElement(pageBar);
@@ -8216,9 +8432,29 @@
                         }, waitTime);
                         return;
                     } else {
+                        let preCode = ruleParser.curSiteRule.pagePre, eles = null;
+                        if (preCode) {
+                            try {
+                                let preResult;
+                                if (typeof preCode == 'function') {
+                                    preResult = await preCode(doc.documentElement.innerHTML, doc);
+                                } else if (preCode.length == 2) {
+                                    preResult = doc.documentElement.innerHTML.replace(new RegExp(preCode[0], "gi"), preCode[1]);
+                                } else {
+                                    preResult = await new AsyncFunction("response", "doc", '"use strict";' + preCode)(doc.documentElement.innerHTML, doc);
+                                }
+                                if (typeof preResult !== "undefined") {
+                                    if (typeof preResult === "string") {
+                                        doc.documentElement.innerHTML = preResult;
+                                    } else eles = preResult;
+                                }
+                            } catch(e) {
+                                debug(e);
+                            }
+                        }
                         let base = doc.querySelector("base");
                         ruleParser.basePath = base ? base.href : url;
-                        let eles = ruleParser.getPageElement(doc, iframe.contentWindow, pageEleTryTimes < 25);
+                        if (eles === null) eles = ruleParser.getPageElement(doc, iframe.contentWindow, pageEleTryTimes < 25);
                         if (eles && eles.length > 0) {
                             await ruleParser.hookUrl(doc);
                             await callback(doc, eles);
@@ -8298,6 +8534,10 @@
         function returnFalse(log) {
             if (curPage > 1) {
                 if (rulesData.lastPageTips) showTips(i18n("lastPage"), "", 800);
+                _unsafeWindow.postMessage({
+                    action: "lastPage",
+                    command: 'pagetual'
+                }, '*');
             } else {
                 sideController.remove();
             }
@@ -8605,20 +8845,20 @@
     var scrollingToResize = false;
 
     function isTouchViewPort(element) {
-        const viewWidth = window.innerWidth || document.documentElement.clientWidth;
-        const viewHeight = window.innerHeight || document.documentElement.clientHeight;
-        const {
+        const viewWidth = window.innerWidth || document.documentElement.clientWidth;
+        const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+        const {
             top,
             right,
             bottom,
             left,
-        } = element.getBoundingClientRect();
+        } = element.getBoundingClientRect();
 
-        return (
-            top < viewHeight &&
-            left < viewWidth &&
-            right > 0 &&
-            bottom > 0
+        return (
+            top < viewHeight &&
+            left < viewWidth &&
+            right > 0 &&
+            bottom > 0
         );
     }
 
@@ -8938,9 +9178,15 @@
                     } else {
                         ruleParser.findNoNext();
                     }
-                } else if (rulesData.lastPageTips && !showedLastPageTips) {
-                    showTips(i18n("lastPage"), "", 800);
+                } else if (!showedLastPageTips) {
+                    if (rulesData.lastPageTips) {
+                        showTips(i18n("lastPage"), "", 800);
+                    }
                     showedLastPageTips = true;
+                    _unsafeWindow.postMessage({
+                        action: "lastPage",
+                        command: 'pagetual'
+                    }, '*');
                 }
                 return;
             }

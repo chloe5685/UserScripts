@@ -1,5 +1,20 @@
 [
 {
+  "resource_url": "http://wedata.net/items/86234",
+  "data": {
+    "insertBefore": "",
+    "pageElement": "//div[contains(concat(' ',@class,' '),' layout-book-section ')]",
+    "nextLink": "//li[contains(concat(' ',@class,' '),' to-next ')]/a",
+    "url": "^https://comic-boost\\.com/",
+    "exampleUrl": "https://comic-boost.com/genre/\r\nhttps://comic-boost.com/tag/%E7%95%B0%E4%B8%96%E7%95%8C"
+  },
+  "database_resource_url": "http://wedata.net/databases/AutoPagerize",
+  "created_by": "t_f_m'",
+  "name": "comic boost 検索・一覧系",
+  "created_at": "2024-06-24T22:04:17+09:00",
+  "updated_at": "2024-06-24T22:04:17+09:00"
+},
+{
   "resource_url": "http://wedata.net/items/86233",
   "data": {
     "insertBefore": "",
@@ -76,8 +91,8 @@
 {
   "resource_url": "http://wedata.net/items/86223",
   "data": {
-    "insertBefore": "//div[@class='width-container']/node()[last()]",
     "pageElement": "//div[@class='book-product-wrapper']",
+    "insertBefore": "//div[@class='width-container']/node()[last()]",
     "nextLink": "//li[contains(concat(' ',@class,' '),' to-next ')]/a",
     "url": "^https://comic-boost\\.com/content/",
     "exampleUrl": "https://comic-boost.com/content/00050001"
@@ -86,7 +101,7 @@
   "created_by": "t_f_m'",
   "name": "comic boost",
   "created_at": "2024-04-23T03:06:24+09:00",
-  "updated_at": "2024-04-23T03:06:24+09:00"
+  "updated_at": "2024-06-24T22:05:45+09:00"
 },
 {
   "resource_url": "http://wedata.net/items/86219",
@@ -19327,7 +19342,7 @@
   "resource_url": "http://wedata.net/items/77750",
   "data": {
     "pageElement": "//ul[contains(concat(' ',@class,' '),' c-up-panel__list ')]/li",
-    "nextLink": "//div[@class='c-pager']/span[contains(concat(' ',@class,' '),' is-current ')]/following-sibling::a",
+    "nextLink": "//div[contains(concat(' ',@class,' '),' c-up-pager ')]//span[contains(concat(' ',@class,' '),' is-current ')]/following-sibling::a",
     "url": "^https?://syosetu\\.com/",
     "exampleUrl": "https://syosetu.com/favnovelmain/list/?nowcategory=1&order=newlist\r\nhttps://syosetu.com/favnovelmain/isnoticelist/\r\nhttps://syosetu.com/usernovelimpression/list/\r\nhttps://syosetu.com/favuser/list/\r\nhttps://syosetu.com/messagebox/top/"
   },
@@ -19335,7 +19350,7 @@
   "created_by": "phodra",
   "name": "小説家になろう ユーザーページ",
   "created_at": "2016-01-04T01:43:02+09:00",
-  "updated_at": "2024-04-08T19:51:00+09:00"
+  "updated_at": "2024-06-22T07:58:54+09:00"
 },
 {
   "resource_url": "http://wedata.net/items/77749",

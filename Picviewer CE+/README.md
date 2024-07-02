@@ -1,4 +1,4 @@
-# 🏞️ Picviewer CE+
+# 🏞️ Picviewer CE+ ⭐[Star Me](https://github.com/hoothin/UserScripts#StarMe) 🌐[Reddit](https://www.reddit.com/r/PicviewerCE) 🗨️[Discord](https://discord.com/invite/keqypXC6wD)
 
 > Zoom images across all your favorite websites. Pop up, scale, edit, rotate, batch save images, or automatically load pictures from subsequent pages. Simply hover your mouse over any image and click the icons on the float bar.
 
@@ -15,26 +15,44 @@
 
 + View long image by scroll
 
+## Usage
+
+Hover your mouse over any image and click the icons on the float bar.
+
 Press `CTRL + G` to quickly enter the gallery. Hold `CTRL` to view a larger picture when hovering over images or links.
 
-There are additional settings available in the "Picviewer CE+ config" for further customization. Currently, reviewing these settings is the best way to learn about the script's capabilities. Try exploring more functions on your own!
+> There are additional settings available in the "Picviewer CE+ config" for further customization. Currently, reviewing these settings is the best way to learn about the script's capabilities. Try exploring more functions on your own!
+> 
+> If you are glad to assist with the translation, please [🌐edit this file](https://github.com/hoothin/UserScripts/edit/master/Picviewer%20CE%2B/pvcep_lang.js#L1). It will be beneficial for individuals who speak the same language as you do. Thank you for your help.
+> 
+> Need more rules for peculiar sites? feel free to pull requests or open issues.
 
-If you are glad to assist with the translation, please [🌐edit this file](https://github.com/hoothin/UserScripts/edit/master/Picviewer%20CE%2B/pvcep_lang.js#L1). It will be beneficial for individuals who speak the same language as you do. Thank you for your help.
+## PDF Addon
+[Picviewer CE+ PDF Addon](https://greasyfork.org/scripts/498445-picviewer-ce-pdf-addon) After installing this addon, when the `Compress to ZIP` feature is enabled, a PDF file will be generated instead of a ZIP file during the packaging process.
+ <details>
+<summary>Make a PDF e-book with this addon</summary>
+  
+  For example, if there is a website with images from `xxx.com/1.jpg` to `xxx.com/99.jpg`, you can use this addon to generate a beautiful PDF e-book as follows:
+1. Open the gallery by pressing Ctrl + g
+2. In the `Command` menu, find and click `Add image`
+3. Input `xxx.com/[1-99].jpg`
+4. Right-click in the thumbnail frame below to ignore any unwanted images
+5. Click `Download all shown` in the `Command` menu
 
-Need more rules for peculiar sites? feel free to pull requests or open issues.
-
+This way, you'll get a beautifully created PDF e-book.
+ </details>
 
 ## 🔧 Custom [Rules Example](pvcep_rules.js):
 **💝 Buy me a coffee with [Ko-fi](https://ko-fi.com/hoothin) or [愛發電](https://afdian.net/a/hoothin) to keep my scripts always up to date.**
 
-<img src="customRule.png" height="100">
+<a href="https://github.com/hoothin/UserScripts/raw/master/Picviewer%20CE%2B/customRule.png"><img src="customRule.png" height="100"></a>
 
 + Match image src(no matter which site) with /pics\\.dmm\\.co\\.jp/i and replace image url from "ps.jpg" to "pl.jpg"
 
 ``` json
 {
     "name": "Dmm",
-    "src": "/pics\\.dmm\\.co\\.jp/i",
+    "src": "pics\\.dmm\\.co\\.jp",
     "r": "ps.jpg",
     "s": "pl.jpg"
 }
@@ -77,25 +95,21 @@ You have the option to use a standalone userscript, which allows you to manage a
 
 (function() {
     'use strict';
-    window.pvcepRules = window.pvcepRules || [];
-    window.pvcepRules.push(
-        ...
-        [
-            //Delete these two example rules and add your own.
-            {
-                name: "rule1",
-                src: /pics\.dmm\.co\.jp/i,
-                r: "ps.jpg",
-                s: "pl.jpg"
-            },
-            {
-                name: "rule2",
-                url: /^https:\/\/xxx\.com\//,
-                r: /us\.xxx\.com\/\d+wm\//i,
-                s: "previews.xxx.com/images/"
-            }
-        ]
-    );
+    window.pvcepRules = (window.pvcepRules || []).concat([
+         //Delete these two example rules and add your own.
+         {
+             name: "rule1",
+             src: /pics\.dmm\.co\.jp/i,
+             r: "ps.jpg",
+             s: "pl.jpg"
+         },
+         {
+             name: "rule2",
+             url: /^https:\/\/xxx\.com\//,
+             r: /us\.xxx\.com\/\d+wm\//i,
+             s: "previews.xxx.com/images/"
+         }
+    ]);
 })();
 ```
 
@@ -105,7 +119,7 @@ You have the option to use a standalone userscript, which allows you to manage a
   There are two types of rules available:
   + JSON (simple mode)
 
-    These rules are written in JSON format and can be imported online through [discussions](https://github.com/hoothin/UserScripts/discussions).
+    These rules are written in JSON format and can be imported online through [Discussions](https://github.com/hoothin/UserScripts/discussions) or [Reddit](https://www.reddit.com/r/PicviewerCE).
     They won't limited by websites that have a strict Content Security Policy that disallows unsafe-eval.
     + JSON params
       - name
@@ -125,9 +139,9 @@ You have the option to use a standalone userscript, which allows you to manage a
         Regular expression used to match the image src
       - r
 
-        `"r": "/(.*)\\d+/i"`
+        `"r": "/(.*)\\d+/i"` or `"r": "thumb"`
         
-        Regular expression used to replace the image src from
+        Simple string or regular expression used to replace the image src from
       - s
 
         `"s": "$1"`
@@ -161,15 +175,18 @@ You have the option to use a standalone userscript, which allows you to manage a
 ## Blank Gallery Page
 [https://hoothin.github.io/UserScripts/Picviewer%20CE+/gallery.html](https://hoothin.github.io/UserScripts/Picviewer%20CE+/gallery.html)
 
-*A blank gallery page designed for viewing local or online pictures, showcasing every image you have imported.*
+> *A blank gallery page designed for viewing local or online pictures, showcasing every image you have imported.*
+
+You can drag and drop folders or videos/audios/images into this gallery to get an electronic slideshow to view them.
 
 Include `mode=`*`1`* to open gallery in view-more mode.<br/>
 Add `imgs=`*`http://xxx/xxx.jpg`* to import images. ` ` to split multi-image, `[01-09]` to generate nine urls form 01 to 09<br/>
 For example: 
 ```url
 https://hoothin.github.io/UserScripts/Picviewer%20CE+/gallery.html?mode=0&imgs=http://xxx/xxx[01-99].jpg
+or
+https://hoothin.github.io/UserScripts/Picviewer%20CE+/gallery.html?mode=0&imgs=${encodeURIComponent(IMG1 + ' ' + IMG2)}
 ```
-Just easily drag and drop your local images into the gallery to view them.
 
 <img src='https://v2fy.com/asset/063_picviewer_ce/72723103-d911ce00-3bba-11ea-9541-0be746977dbc.gif' width=325><img src='https://v2fy.com/asset/063_picviewer_ce/72767872-7eb35480-3c30-11ea-814d-ce4678c81089.gif' width=325><img src='https://v2fy.com/asset/063_picviewer_ce/73130353-c4598e00-4031-11ea-810e-9498677a40d1.gif' width=325>
 

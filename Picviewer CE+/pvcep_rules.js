@@ -1620,5 +1620,68 @@ var siteInfo = [
         lazyAttr: "data-a-hires",
         r: [/(_AC_|_CR0).*\./, /._SY\d+\_?/],
         s: ["", ""]
+    },
+    {
+        name: "hentaigifz",
+        url: /^https:\/\/hentaigifz\.com/,
+        r: /-thumbnail.*/,
+        s: ".gif"
+    },
+    {
+        name: "porngifmag",
+        url: /^https:\/\/porngifmag\.com/,
+        xhr: {
+            url: ".thumb-image>a",
+            query: ".single-image>img"
+        }
+    },
+    {
+        name: "behance",
+        url: /^https:\/\/www\.behance\.net/,
+        xhr: {
+            url: "a[href^='/gallery/']",
+            query: "img[class^='ImageElement-image']"
+        },
+        getExtSrc: function() {
+            if (this.className && this.className.indexOf && this.className.indexOf("ProjectCoverNeue-link") !== -1) {
+                let img = this.parentNode.parentNode.querySelector("picture>img");
+                if (img) return img.src;
+            }
+        }
+    },
+    {
+        name: "postimg host",
+        src: /^https:\/\/i\.postimg\.cc/,
+        xhr: {
+            url: "a[href^='https://postimg.cc/']",
+            query: "#main-image"
+        }
+    },
+    {
+        name: "postimg",
+        url: /^https:\/\/postimg\.cc/,
+        xhr: {
+            url: ".thumb>a",
+            query: "#main-image"
+        }
+    },
+    {
+        name: "imagebam",
+        src: /^https:\/\/thumbs\d*\.imagebam\.com\//,
+        xhr: {
+            url: function(a, p) {
+                let imageId = this.src.match(/\/(\w+)\_\w\./);
+                if (!imageId) return null;
+                return `https://www.imagebam.com/view/${imageId[1]}`;
+            },
+            query: ".main-image"
+        }
+    },
+    {
+        name: "MAL Anime/Manga Search",
+        url: /^https:\/\/myanimelist\.net\/(anime|manga)\.php\?cat=(anime|manga).+/,
+        src: /^https:\/\/cdn\.myanimelist\.net/,
+        r: /\/r\/(\d+x\d+)(\/images\/(anime|manga)\/\d+\/\d+)\.webp.+/,
+        s: "$2l.jpg"
     }
 ];

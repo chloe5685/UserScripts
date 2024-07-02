@@ -7,7 +7,7 @@
 腳本會自動檢索頁面中的主要內容並下載（<del>省得複製完gal攻略還要手動逐條刪除「某某某13級頭銜水龍王發表於X年X月X日來自XX客戶端」</del>）。
 如果位於小說目錄頁會遍歷所有章節並排序拼接後存為TXT文檔。
 
-[![img](https://img.shields.io/github/stars/hoothin/UserScripts?style=social)](https://github.com/hoothin/UserScripts)
+[![img](https://img.shields.io/github/stars/hoothin/UserScripts?style=social)](https://github.com/hoothin/UserScripts#StarMe) ⭐[Star Me](https://github.com/hoothin/UserScripts#StarMe)
 
 ---
 
@@ -23,6 +23,8 @@
 ![donate](https://s2.loli.net/2023/02/06/afTMxeASm48z5vE.jpg)
 
 [怠惰小説下載器 ZIP 擴充](https://greasyfork.org/scripts/476943) 下載時分章節保存 TXT 並打包為 ZIP
+
+[圖片驗證碼辨識](https://github.com/hoothin/ImgCodeCheck) 開啟`保留內文圖片的網址`後配合 ZIP 擴充可自動轉換圖片文字，詳閱[愛發電](https://afdian.net/p/c7fc3abc8e8411ee9b1852540025c377)
 
 ## 怠惰心法
 <del>名喚怠惰，實為勤勉</del>
