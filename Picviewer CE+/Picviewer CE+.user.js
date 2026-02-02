@@ -12,7 +12,7 @@
 // @description:ja       画像を強力に閲覧できるツール。ポップアップ表示、拡大・縮小、回転、一括保存などの機能を自動で実行できます
 // @description:pt-BR    Poderosa ferramenta de visualização de imagens on-line, que pode pop-up/dimensionar/girar/salvar em lote imagens automaticamente
 // @description:ru       Мощный онлайн-инструмент для просмотра изображений, который может автоматически отображать/масштабировать/вращать/пакетно сохранять изображения
-// @version              2026.1.31.1
+// @version              2026.2.2.1
 // @icon                 data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAV1BMVEUAAAD////29vbKysoqKioiIiKysrKhoaGTk5N9fX3z8/Pv7+/r6+vk5OTb29vOzs6Ojo5UVFQzMzMZGRkREREMDAy4uLisrKylpaV4eHhkZGRPT08/Pz/IfxjQAAAAgklEQVQoz53RRw7DIBBAUb5pxr2m3/+ckfDImwyJlL9DDzQgDIUMRu1vWOxTBdeM+onApENF0qHjpkOk2VTwLVEF40Kbfj1wK8AVu2pQA1aBBYDHJ1wy9Cf4cXD5chzNAvsAnc8TjoLAhIzsBao9w1rlVTIvkOYMd9nm6xPi168t9AYkbANdajpjcwAAAABJRU5ErkJggg==
 // @namespace            https://github.com/hoothin/UserScripts
 // @homepage             https://pv.hoothin.com/
@@ -12423,7 +12423,7 @@ ImgOps | https://imgops.com/#b#`;
                     cb(blob);
                 }
             } else {
-                cb(blob);
+                cb(blob, ext);
             }
         }).catch(error => {
             cb(null);
@@ -16745,7 +16745,7 @@ ImgOps | https://imgops.com/#b#`;
                         e.preventDefault();
                         self.selectViewmore(imgSpan, curNode.dataset.src);
                         let loadError = e => {
-                            if (/^blob:/.test(media.src)) {
+                            if (/^blob:/.test(dataset(node, 'src'))) {
                                 let i = document.createElement("img");
                                 i.src = curNode.dataset.thumbSrc;
                                 curNode.dataset.src = curNode.dataset.thumbSrc;
@@ -16756,13 +16756,19 @@ ImgOps | https://imgops.com/#b#`;
                                     url: dataset(node, 'src'),
                                     responseType: 'blob',
                                     onload: function(response) {
-                                        const blobUrl = URL.createObjectURL(response.response);
                                         let i = document.createElement("img");
-                                        i.src = blobUrl;
-                                        curNode.dataset.src = curNode.dataset.thumbSrc;
-                                        popupImgWin(i);
-                                        const releaseBlob = () => URL.revokeObjectURL(blobUrl);
-                                        window.addEventListener('beforeunload', releaseBlob);
+                                        if (response.response.type !== "text/html" && response.response.size > 1000) {
+                                            const blobUrl = URL.createObjectURL(response.response);
+                                            i.src = blobUrl;
+                                            curNode.dataset.src = curNode.dataset.thumbSrc;
+                                            popupImgWin(i);
+                                            const releaseBlob = () => URL.revokeObjectURL(blobUrl);
+                                            window.addEventListener('beforeunload', releaseBlob);
+                                        } else {
+                                            i.src = curNode.dataset.thumbSrc;
+                                            curNode.dataset.src = curNode.dataset.thumbSrc;
+                                            popupImgWin(i);
+                                        }
                                     },
                                     onerror: function() {
                                         let i = document.createElement("img");
