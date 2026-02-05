@@ -10069,7 +10069,8 @@
         configCon.appendChild(blacklistInput);
         let saveBtn = document.createElement("button");
         langSelect.onchange = e => {
-            saveBtn.click();
+            rulesData.lang = langSelect.value || "";
+            storage.setItem("rulesData", rulesData);
             setTimeout(() => {
                 location.reload();
             }, 500);
