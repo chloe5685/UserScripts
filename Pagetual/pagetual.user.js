@@ -4572,6 +4572,7 @@
         parseHTMLToFragment(String(html), fragment, targetDoc);
         return fragment;
     }
+    let canDirectSetHTML = true;
     const SVG_NS = 'http://www.w3.org/2000/svg';
     const VOID_TAGS = {
         area: true,
@@ -4663,6 +4664,15 @@
     }
     function setHTML(target, html, doc) {
         if (!target) return;
+        if (canDirectSetHTML !== false) {
+            try {
+                target.innerHTML = html === null || html === undefined ? '' : String(html);
+                canDirectSetHTML = true;
+                return;
+            } catch (e) {
+                canDirectSetHTML = false;
+            }
+        }
         const targetDoc = doc || target.ownerDocument || document;
         const fragment = createHTML(html, targetDoc);
         while (target.firstChild) {
