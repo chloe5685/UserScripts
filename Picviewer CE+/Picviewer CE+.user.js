@@ -12,7 +12,7 @@
 // @description:ja       画像を強力に閲覧できるツール。ポップアップ表示、拡大・縮小、回転、一括保存などの機能を自動で実行できます
 // @description:pt-BR    Poderosa ferramenta de visualização de imagens on-line, que pode pop-up/dimensionar/girar/salvar em lote imagens automaticamente
 // @description:ru       Мощный онлайн-инструмент для просмотра изображений, который может автоматически отображать/масштабировать/вращать/пакетно сохранять изображения
-// @version              2026.2.2.1
+// @version              2026.2.6.1
 // @icon                 data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAV1BMVEUAAAD////29vbKysoqKioiIiKysrKhoaGTk5N9fX3z8/Pv7+/r6+vk5OTb29vOzs6Ojo5UVFQzMzMZGRkREREMDAy4uLisrKylpaV4eHhkZGRPT08/Pz/IfxjQAAAAgklEQVQoz53RRw7DIBBAUb5pxr2m3/+ckfDImwyJlL9DDzQgDIUMRu1vWOxTBdeM+onApENF0qHjpkOk2VTwLVEF40Kbfj1wK8AVu2pQA1aBBYDHJ1wy9Cf4cXD5chzNAvsAnc8TjoLAhIzsBao9w1rlVTIvkOYMd9nm6xPi168t9AYkbANdajpjcwAAAABJRU5ErkJggg==
 // @namespace            https://github.com/hoothin/UserScripts
 // @homepage             https://pv.hoothin.com/
@@ -12758,6 +12758,7 @@ ImgOps | https://imgops.com/#b#`;
                 createScriptURL: string => string,
                 createScript: string => string
             });
+            escapeHTMLCreator = escapeHTMLPolicy.createHTML;
             return;
         } catch (e) {
         }
@@ -12765,6 +12766,9 @@ ImgOps | https://imgops.com/#b#`;
     }
 
     let escapeHTMLPolicy = null;
+    let escapeHTMLCreator = null;
+    let canDirectSetHTML = true;
+    let canPolicySetHTML = true;
 
     function getBody(doc){
         return doc.body || doc.querySelector('body') || doc;
@@ -12792,6 +12796,15 @@ ImgOps | https://imgops.com/#b#`;
         track: true,
         wbr: true
     };
+    const RAW_TEXT_TAGS = {
+        script: true,
+        style: true,
+        textarea: true,
+        title: true,
+        xmp: true,
+        plaintext: true,
+        noscript: true
+    };
     const HTML_ENTITIES = {
         amp: '&',
         lt: '<',
@@ -12816,7 +12829,7 @@ ImgOps | https://imgops.com/#b#`;
     }
     function parseHTMLToFragment(html, fragment, doc){
         const stack = [fragment];
-        const tokenRe = /<!--[\s\S]*?-->|<\/?[a-zA-Z][^>]*>|[^<]+/g;
+        const tokenRe = /<!--[\s\S]*?-->|<!doctype[^>]*>|<\/?[a-zA-Z][^>]*>|[^<]+/gi;
         let match;
         while ((match = tokenRe.exec(html))) {
             const token = match[0];
@@ -12826,6 +12839,9 @@ ImgOps | https://imgops.com/#b#`;
                 continue;
             }
             if (token.indexOf('<!--') === 0) {
+                continue;
+            }
+            if (/^<!doctype/i.test(token)) {
                 continue;
             }
             if (token[1] === '/') {
@@ -12861,22 +12877,66 @@ ImgOps | https://imgops.com/#b#`;
             const selfClosing = token.endsWith('/>');
             if (!selfClosing && !VOID_TAGS[tagName]) {
                 stack.push(el);
+                if (RAW_TEXT_TAGS[tagName]) {
+                    const closeRe = new RegExp('<\\/\\s*' + tagName + '\\s*>', 'ig');
+                    closeRe.lastIndex = tokenRe.lastIndex;
+                    const closeMatch = closeRe.exec(html);
+                    if (closeMatch) {
+                        const rawText = html.slice(tokenRe.lastIndex, closeMatch.index);
+                        if (rawText) el.appendChild(doc.createTextNode(rawText));
+                        tokenRe.lastIndex = closeMatch.index + closeMatch[0].length;
+                        stack.pop();
+                    }
+                }
             }
         }
-    }
-    function setHTML(target, html){
-        if (!target) return;
-        const fragment = createHTML(html);
-        while (target.firstChild) {
-            target.removeChild(target.firstChild);
-        }
-        target.appendChild(fragment);
     }
     function createScriptURL(html){
         return escapeHTMLPolicy?escapeHTMLPolicy.createScriptURL(html):html;
     }
     function createScript(html){
         return escapeHTMLPolicy?escapeHTMLPolicy.createScript(html):html;
+    }
+    function tryDirectSetHTML(target, htmlStr){
+        if (!canDirectSetHTML) return false;
+        try {
+            target.innerHTML = htmlStr;
+            return true;
+        } catch (e) {
+            canDirectSetHTML = false;
+            return false;
+        }
+    }
+    function ensureEscapeHTMLCreator(){
+        if (!canPolicySetHTML) return null;
+        if (escapeHTMLCreator) return escapeHTMLCreator;
+        if (escapeHTMLPolicy && typeof escapeHTMLPolicy.createHTML === "function") {
+            escapeHTMLCreator = escapeHTMLPolicy.createHTML;
+            return escapeHTMLCreator;
+        }
+        return null;
+    }
+    function tryPolicySetHTML(target, htmlStr){
+        if (!canPolicySetHTML) return false;
+        const creator = ensureEscapeHTMLCreator();
+        if (!creator) return false;
+        try {
+            target.innerHTML = creator(htmlStr);
+            return true;
+        } catch (e) {
+            canPolicySetHTML = false;
+            return false;
+        }
+    }
+    function setHTML(target, html){
+        if (!target) return;
+        const htmlStr = html === null || html === undefined ? '' : String(html);
+        if (tryDirectSetHTML(target, htmlStr) || tryPolicySetHTML(target, htmlStr)) return;
+        const fragment = createHTML(htmlStr);
+        while (target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
+        target.appendChild(fragment);
     }
     async function init(topObject,window,document,arrayFn,envir,storage,unsafeWindow){
         await createPolicy();
