@@ -4169,12 +4169,97 @@
         }
     }
 
+    function requestWithFetch(f, onFetchError) {
+        if (!f || !f.url || typeof fetch === "undefined") {
+            if (onFetchError) {
+                onFetchError({error: "Fetch not available"});
+            } else if (f && f.onerror) {
+                f.onerror({error: "Fetch not available"});
+            }
+            return;
+        }
+        let method = (f.method || "GET").toUpperCase();
+        let timeoutId = null;
+        let controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+        if (f.timeout > 0 && controller) {
+            timeoutId = setTimeout(() => {
+                controller.abort();
+            }, f.timeout);
+        }
+        let options = {
+            method: method,
+            headers: f.headers || {}
+        };
+        if (controller) options.signal = controller.signal;
+        if (method !== "GET" && method !== "HEAD" && typeof f.data !== "undefined") {
+            options.body = f.data;
+        }
+        fetch(f.url, options).then(async response => {
+            if (timeoutId) clearTimeout(timeoutId);
+            let text = await response.text();
+            let headers = "";
+            response.headers.forEach((value, key) => {
+                headers += key + ": " + value + "\r\n";
+            });
+            if (f.onload) {
+                f.onload({
+                    response: text,
+                    responseText: text,
+                    status: response.status,
+                    statusText: response.statusText,
+                    finalUrl: response.url,
+                    responseHeaders: headers
+                });
+            }
+        }).catch(error => {
+            if (timeoutId) clearTimeout(timeoutId);
+            if (error && error.name === "AbortError" && f.ontimeout) {
+                f.ontimeout(error);
+                return;
+            }
+            if (onFetchError) {
+                onFetchError(error);
+            } else if (f.onerror) {
+                f.onerror(error);
+            }
+        });
+    }
+    function isSameOriginRequest(f) {
+        if (!f || !f.url || typeof location === "undefined") return false;
+        try {
+            return new URL(f.url, location.href).origin === location.origin;
+        } catch (e) {
+            return false;
+        }
+    }
+    let nativeGMRequest = null;
     if (typeof GM_xmlhttpRequest !== 'undefined') {
-        _GM_xmlhttpRequest = GM_xmlhttpRequest;
+        nativeGMRequest = GM_xmlhttpRequest;
     } else if (typeof GM !== 'undefined' && typeof GM.xmlHttpRequest !== 'undefined') {
-        _GM_xmlhttpRequest = GM.xmlHttpRequest;
+        nativeGMRequest = GM.xmlHttpRequest;
+    }
+    if (nativeGMRequest) {
+        _GM_xmlhttpRequest = function(f) {
+            if (!f) return nativeGMRequest(f);
+            if (isSameOriginRequest(f)) {
+                requestWithFetch(f);
+                return;
+            }
+            let originalOnerror = f.onerror;
+            let request = Object.assign({}, f);
+            request.onerror = function(gmError) {
+                requestWithFetch(f, function(fetchError) {
+                    if (originalOnerror) {
+                        originalOnerror(fetchError || gmError || {error: "Request failed"});
+                    }
+                });
+            };
+            return nativeGMRequest(request);
+        };
     } else {
-        _GM_xmlhttpRequest = (f) => {fetch(f.url, {method: f.method || 'GET', body: f.data, headers: f.headers}).then(response => response.text()).then(data => {f.onload && f.onload({response: data})}).catch(f.onerror && f.onerror())};
+        _GM_xmlhttpRequest = function(f) {
+            requestWithFetch(f);
+        };
     }
     if (typeof GM_registerMenuCommand !== 'undefined') {
         _GM_registerMenuCommand = GM_registerMenuCommand;
