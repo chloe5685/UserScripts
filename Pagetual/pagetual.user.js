@@ -31,7 +31,7 @@
 // @name:da      Pagetual
 // @name:fr-CA   Pagetual
 // @namespace    hoothin
-// @version      1.9.37.128
+// @version      1.9.37.129
 // @description  Perpetual pages - powerful auto-pager script. Auto fetching next paginated web pages and inserting into current page for infinite scroll. Support thousands of web sites without any rule.
 // @description:zh-CN  终极自动翻页 - 加载并拼接下一分页内容至当前页尾，智能适配任意网页
 // @description:zh-TW  終極自動翻頁 - 加載並拼接下一分頁內容至當前頁尾，智能適配任意網頁
@@ -6190,9 +6190,9 @@
             }
             if (!next) {
                 await sleep(1);
-                let pageDiv = body.querySelector(".pagination,.pagination-list");
+                let pageDiv = body.querySelector("[class*=paging],.pagination,.pagination-list");
                 if (pageDiv) {
-                    cur = pageDiv.querySelector("[class*=current],.page-selected,[aria-current]");
+                    cur = pageDiv.querySelector("[class*=current],[class*=active],.page-selected,[aria-current]");
                     if (cur) {
                         if (cur.parentNode == pageDiv) {
                             next = cur.nextElementSibling;
@@ -7435,7 +7435,7 @@
                 let initRun = typeof self.curSiteRule.initRun == 'undefined' ? rulesData.initRun : self.curSiteRule.initRun;
                 if (self.nextLinkHref) {
                     sideController.setup();
-                    if (initRun && initRun != false) {
+                    if (initRun && initRun != false && (self.nextLinkHref != '#' || !self.curSiteRule.smart)) {
                         setTimeout(() => {
                             nextPage();
                         }, 300);
@@ -11781,8 +11781,8 @@
         }, 1);
     }
 
-    const loadmoreReg = /^\s*((点击?)?(这里)?((看|加载|展开)(更多|剩余)|继续加载)|(點擊?)?(這裡)?((看|加載|展開)(更多|剩餘)|繼續加載)|load\s*more|もっと読み込む)[\.…▼\s\d%]*$/i;
-    const defaultLoadmoreSel = ".loadMore,.LoadMore,[class^='load-more'],[class*=' load-more'],.show-more,button.show_more,button[data-testid='more-results-button'],#btn_preview_remain,.view-more-btn";
+    const loadmoreReg = /^\s*((点击?)?(这里)?((看|显示|加载|展开)(更多|剩余)|继续加载)|(點擊?)?(這裡)?((看|顯示|加載|展開)(更多|剩餘)|繼續加載)|load\s*more|もっと読み込む)[\.…▼\s\d%]*$/i;
+    const defaultLoadmoreSel = ".loadMore,.LoadMore,[class^='load-more'],[class*=' load-more'],.show-more,button.show_more,button[data-testid='more-results-button'],#dataMoreBtn,#btn_preview_remain,.view-more-btn";
     function getLoadMore(doc, loadmoreBtn) {
         if (!loadmoreBtn || !getBody(doc).contains(loadmoreBtn) || /less/.test(loadmoreBtn.innerText)) loadmoreBtn = null;
         let loadMoreSel = ruleParser.curSiteRule.loadMore;

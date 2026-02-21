@@ -6360,6 +6360,16 @@
     "enable": 0
 },
 {
+    "name": "stripe",
+    "url": "^https?://js\\.stripe\\.com/",
+    "enable": 0
+},
+{
+    "name": "cardinalcommerce",
+    "url": "^https?://geoissuer\\.cardinalcommerce\\.com/",
+    "enable": 0
+},
+{
     "name": "Slickdeals",
     "url": "^https?://slickdeals\\.net/f/",
     "include": ".slickdealsPagination",
