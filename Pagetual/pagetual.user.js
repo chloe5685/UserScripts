@@ -31,7 +31,7 @@
 // @name:da      Pagetual
 // @name:fr-CA   Pagetual
 // @namespace    hoothin
-// @version      1.9.37.129
+// @version      1.9.37.130
 // @description  Perpetual pages - powerful auto-pager script. Auto fetching next paginated web pages and inserting into current page for infinite scroll. Support thousands of web sites without any rule.
 // @description:zh-CN  终极自动翻页 - 加载并拼接下一分页内容至当前页尾，智能适配任意网页
 // @description:zh-TW  終極自動翻頁 - 加載並拼接下一分頁內容至當前頁尾，智能適配任意網頁
@@ -4170,6 +4170,88 @@
     }
 
     function requestWithFetch(f, onFetchError) {
+        function getHeaderValue(headers, name) {
+            if (!headers || !name) return "";
+            let lowerName = String(name).toLowerCase();
+            if (typeof Headers !== "undefined" && headers instanceof Headers) {
+                return headers.get(lowerName) || "";
+            }
+            if (typeof headers === "object") {
+                for (let key in headers) {
+                    if (Object.prototype.hasOwnProperty.call(headers, key) && String(key).toLowerCase() === lowerName) {
+                        return headers[key] || "";
+                    }
+                }
+            }
+            return "";
+        }
+        function extractCharsetFromContentType(contentType) {
+            if (!contentType || typeof contentType !== "string") return "";
+            let match = contentType.match(/charset\s*=\s*["']?([^;"'\s]+)/i);
+            return match && match[1] ? match[1].trim() : "";
+        }
+        function decodeArrayBufferByCharset(buffer, preferredCharset) {
+            let bytes = new Uint8Array(buffer);
+            let decoderList = [];
+            let normalize = label => String(label || "").trim().toLowerCase();
+            let addAlias = (name, aliases) => {
+                if (aliases.indexOf(normalizedPreferred) !== -1) {
+                    pushDecoder(name);
+                    for (let i = 0; i < aliases.length; i++) {
+                        pushDecoder(aliases[i]);
+                    }
+                }
+            };
+            let pushDecoder = label => {
+                let raw = String(label || "").trim();
+                if (raw && decoderList.indexOf(raw) === -1) {
+                    decoderList.push(raw);
+                }
+            };
+            let normalizedPreferred = normalize(preferredCharset).replace(/["']/g, "");
+            pushDecoder(preferredCharset);
+            pushDecoder(normalizedPreferred);
+            pushDecoder(normalizedPreferred.replace(/_/g, "-"));
+            pushDecoder(normalizedPreferred.replace(/-/g, "_"));
+            addAlias("shift_jis", ["shiftjis", "shift-jis", "sjis", "ms_kanji", "windows-31j", "cp932", "ms932"]);
+            addAlias("euc-jp", ["eucjp"]);
+            addAlias("iso-2022-jp", ["iso2022jp", "jis"]);
+            addAlias("gb18030", ["gbk", "gb2312", "x-gbk", "cp936", "ms936", "windows-936"]);
+            addAlias("big5", ["big-5", "cn-big5", "x-x-big5"]);
+            addAlias("euc-kr", ["euckr", "ks_c_5601-1987", "ksc5601", "windows-949", "cp949"]);
+            addAlias("windows-1251", ["cp1251"]);
+            addAlias("windows-1252", ["cp1252", "iso-8859-1", "latin1", "latin-1"]);
+            pushDecoder("utf-8");
+            for (let i = 0; i < decoderList.length; i++) {
+                try {
+                    return new TextDecoder(decoderList[i]).decode(bytes);
+                } catch (e) {}
+            }
+            try {
+                return new TextDecoder().decode(bytes);
+            } catch (e) {
+                return "";
+            }
+        }
+        function detectCharsetFromHtmlHead(buffer) {
+            if (!buffer || !buffer.byteLength) return "";
+            let scanLen = Math.min(buffer.byteLength, 16384);
+            let bytes = new Uint8Array(buffer, 0, scanLen);
+            let ascii = "";
+            for (let i = 0; i < bytes.length; i++) {
+                let code = bytes[i];
+                ascii += code < 128 ? String.fromCharCode(code) : " ";
+            }
+            let charsetMatch = ascii.match(/<meta[^>]*charset\s*=\s*["']?\s*([a-zA-Z0-9._-]+)/i);
+            if (!charsetMatch) {
+                charsetMatch = ascii.match(/<meta[^>]*content\s*=\s*["'][^"']*charset\s*=\s*([a-zA-Z0-9._-]+)/i);
+            }
+            return charsetMatch && charsetMatch[1] ? charsetMatch[1].trim() : "";
+        }
+        function isUtf8Charset(label) {
+            let normalized = String(label || "").trim().toLowerCase().replace(/_/g, "-");
+            return !normalized || normalized === "utf-8" || normalized === "utf8";
+        }
         if (!f || !f.url || typeof fetch === "undefined") {
             if (onFetchError) {
                 onFetchError({error: "Fetch not available"});
@@ -4196,7 +4278,27 @@
         }
         fetch(f.url, options).then(async response => {
             if (timeoutId) clearTimeout(timeoutId);
-            let text = await response.text();
+            let responseCharset = extractCharsetFromContentType(response.headers.get("content-type") || "");
+            let overrideCharset = extractCharsetFromContentType(f.overrideMimeType || "");
+            let requestCharset = extractCharsetFromContentType(getHeaderValue(options.headers, "content-type"));
+            let text;
+            let charsetFromHeaders = responseCharset || overrideCharset || requestCharset;
+            if (charsetFromHeaders) {
+                if (isUtf8Charset(charsetFromHeaders)) {
+                    text = await response.text();
+                } else {
+                    text = decodeArrayBufferByCharset(await response.arrayBuffer(), charsetFromHeaders);
+                }
+            } else {
+                let rawBuffer = await response.arrayBuffer();
+                let metaCharset = detectCharsetFromHtmlHead(rawBuffer);
+                let targetCharset = metaCharset || charset || "utf-8";
+                if (isUtf8Charset(targetCharset)) {
+                    text = new TextDecoder("utf-8").decode(new Uint8Array(rawBuffer));
+                } else {
+                    text = decodeArrayBufferByCharset(rawBuffer, targetCharset);
+                }
+            }
             let headers = "";
             response.headers.forEach((value, key) => {
                 headers += key + ": " + value + "\r\n";
