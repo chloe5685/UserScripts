@@ -31,7 +31,7 @@
 // @name:da      Pagetual
 // @name:fr-CA   Pagetual
 // @namespace    hoothin
-// @version      1.9.37.130
+// @version      1.9.37.131
 // @description  Perpetual pages - powerful auto-pager script. Auto fetching next paginated web pages and inserting into current page for infinite scroll. Support thousands of web sites without any rule.
 // @description:zh-CN  终极自动翻页 - 加载并拼接下一分页内容至当前页尾，智能适配任意网页
 // @description:zh-TW  終極自動翻頁 - 加載並拼接下一分頁內容至當前頁尾，智能適配任意網頁
@@ -4510,6 +4510,8 @@
                         "https://github.com/hoothin/UserScripts/tree/master/Pagetual",
                         "https://hoothin.github.io/UserScripts/Pagetual/"];
     const firstRunPage = "https://pagetual.hoothin.com/firstRun";
+    const wedataRulesUrl = "http://wedata.net/databases/AutoPagerize/items_all.json";
+    const wedataMirrorRulesUrl = "https://hoothin.github.io/UserScripts/Pagetual/items_all.json";
     const guidePage = /^https?:\/\/.*pagetual.*rule\.html/i;
     const ruleImportUrlReg = /greasyfork\.org\/.*scripts\/438684(\-[^\/]*)?(\/discussions|\/?$|\/feedback)|github\.com\/hoothin\/UserScripts\/(tree\/master\/Pagetual|issues)|^https:\/\/pagetual\.hoothin\.com\/.*firstRun\.html/i;
     const allOfBody = "body>*";
@@ -9384,7 +9386,7 @@
     }
     const picker = new Picker();
 
-    var editor, editorChanged = false, customRulesInput;
+    var editor, editorChanged = false, customRulesInput, wedata2githubInputRef;
     function createEdit() {
         var options = {
             mode: 'code',
@@ -10246,6 +10248,7 @@
         let arrowToScrollInput = createCheckbox(i18n("arrowToScroll"), rulesData.arrowToScroll);
         let contentVisibilityInput = createCheckbox(i18n("contentVisibility"), rulesData.contentVisibility);
         let wedata2githubInput = createCheckbox(i18n("wedata2github"), rulesData.wedata2github);
+        wedata2githubInputRef = wedata2githubInput;
         let customFirstInput = createCheckbox(i18n("customFirst"), rulesData.customFirst);
         let lastPageTipsInput = createCheckbox(i18n("lastPageTips"), rulesData.lastPageTips);
         let updateNotificationInput = createCheckbox(i18n("updateNotification"), rulesData.updateNotification != false);
@@ -10545,6 +10548,27 @@
         let allOk = true;
         let preLength = ruleParser.rules.length;
         let fetchVersion = -1;
+        let triedWedataMirrorFallback = false;
+        function switchToWedataMirrorOnFirstUpdate(rule) {
+            if (!rule || rule.id !== 1 || rulesData.wedata2github || updateDate) {
+                return false;
+            }
+            rulesData.wedata2github = true;
+            storage.setItem("rulesData", rulesData);
+            if (wedata2githubInputRef) {
+                wedata2githubInputRef.checked = true;
+            }
+            if (ruleUrls && ruleUrls.length > 0) {
+                for (let i = 0; i < ruleUrls.length; i++) {
+                    if (ruleUrls[i].id === 1) {
+                        ruleUrls[i].url = wedataMirrorRulesUrl;
+                        break;
+                    }
+                }
+            }
+            rule.url = wedataMirrorRulesUrl;
+            return true;
+        }
         async function needUpdate(url, id) {
             if (!/^https:\/\/hoothin\.github\.io\/|\/hoothin\/UserScripts\/.*\/Pagetual\/pagetualRules\.json/i.test(url)) {
                 return true;
@@ -10611,6 +10635,17 @@
                 if (await needUpdate(rule.url, rule.id)) {
                     ruleParser.addRuleByUrl(rule.url, rule.id, (json, err) => {
                         if (!json) {
+                            if (!triedWedataMirrorFallback && switchToWedataMirrorOnFirstUpdate(rule)) {
+                                triedWedataMirrorFallback = true;
+                                ruleParser.addRuleByUrl(rule.url, rule.id, (retryJson, retryErr) => {
+                                    if (!retryJson) {
+                                        allOk = false;
+                                        fail(rule, retryErr);
+                                    }
+                                    addNextRule();
+                                });
+                                return;
+                            }
                             allOk = false;
                             fail(rule, err);
                         }
@@ -10728,7 +10763,7 @@
             /*0 wedata格式，1 pagetual格式*/
             ruleUrls = [{
                 id: 1,
-                url: data && data.wedata2github ? 'https://hoothin.github.io/UserScripts/Pagetual/items_all.json' : 'http://wedata.net/databases/AutoPagerize/items_all.json',
+                url: data && data.wedata2github ? wedataMirrorRulesUrl : wedataRulesUrl,
                 type: 0
             }];
             if (data) {
