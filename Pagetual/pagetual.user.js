@@ -10305,13 +10305,13 @@
             }, (rule, err) => {
                 if (rule.id == 1) {
                     showTips(`Failed to update wedata rules! Try to switch to wedata mirror!`);
-                    wedata2githubInput.scrollIntoView({ behavior: "smooth" });
+                    wedata2githubInput.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
                 } else {
                     showTips(`Failed to update ${rule.url} rules!`);
                 }
                 debug(err);
                 updateFail = true;
-            });
+            }, false, true);
         };
         let customRulesTitle = document.createElement("h2");
         setHTML(customRulesTitle, i18n("customRules", /tree/.test(location.href) ? location.href.replace('tree', 'edit').replace(/\/$/, '') + '/pagetualRules.json' : 'https://github.com/hoothin/UserScripts/edit/master/Pagetual/pagetualRules.json'));
@@ -10532,7 +10532,7 @@
         return true;
     }
 
-    function updateRules (success, fail, keepCache) {
+    function updateRules (success, fail, keepCache, forceWedataMirrorFallback) {
         if (!storage.supportCrossSave()) {
             fail({url:''}, "Not support cross storage");
             showTips("Current platform do not support cross storage!");
@@ -10549,8 +10549,8 @@
         let preLength = ruleParser.rules.length;
         let fetchVersion = -1;
         let triedWedataMirrorFallback = false;
-        function switchToWedataMirrorOnFirstUpdate(rule) {
-            if (!rule || rule.id !== 1 || rulesData.wedata2github || updateDate) {
+        function switchToWedataMirrorOnFail(rule) {
+            if (!rule || rule.id !== 1 || rulesData.wedata2github || (updateDate && !forceWedataMirrorFallback)) {
                 return false;
             }
             rulesData.wedata2github = true;
@@ -10635,7 +10635,7 @@
                 if (await needUpdate(rule.url, rule.id)) {
                     ruleParser.addRuleByUrl(rule.url, rule.id, (json, err) => {
                         if (!json) {
-                            if (!triedWedataMirrorFallback && switchToWedataMirrorOnFirstUpdate(rule)) {
+                            if (!triedWedataMirrorFallback && switchToWedataMirrorOnFail(rule)) {
                                 triedWedataMirrorFallback = true;
                                 ruleParser.addRuleByUrl(rule.url, rule.id, (retryJson, retryErr) => {
                                     if (!retryJson) {
